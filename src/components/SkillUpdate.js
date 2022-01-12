@@ -5,7 +5,9 @@ import axios from 'axios'
 
 const SkillUpdate =(props)=>{
   const { id } = useParams()
-  const [skill, setSkill] = useState({})
+  const [skill, setSkill] = useState(()=>{
+    return {}
+  })
 
   useEffect(()=>{
     const loadSkill = async ()=>{

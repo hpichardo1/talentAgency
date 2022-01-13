@@ -40,6 +40,7 @@ export const _loadSkills = ()=>{
 const initialState = {
   clients: [],
   skills: [],
+  skill: {}
 }
 
 //create Store

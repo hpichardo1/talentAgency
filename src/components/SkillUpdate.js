@@ -1,46 +1,45 @@
 import React, { useState, useEffect} from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import { _loadSkills, _loadClients } from '../../store'
 
 const SkillUpdate =(props)=>{
   const { id } = useParams()
-  const [skill, setSkill] = useState(()=>{
-    return {}
-  })
-
+  const [form, setForm] = useState()
+  const skills = useSelector((state) => state.skills);
+  const skill = useSelector((state) => state.skills.filter(skill => skill.id === id*1)[0]);
+  
+  const dispatch = useDispatch();
   useEffect(()=>{
-    const loadSkill = async ()=>{
-      const found = await props.getSkill(id)
-      setSkill(found)
-    }
-    loadSkill()
-  }, [])
+    dispatch(_loadSkills())
+  },[])
 
   console.log('skill-->', skill)
   return (
     <div>
       <h1>Acme Talent Agency</h1>
       <form>
-        <input type='text' name='skillName' placeholder={skill.name} />
+        <input type='text' name='skillName' placeholder={skill ? skill.name : 'Skill name' } />
       </form>
     </div>
   )
 }
 
-const mapState = (state)=>{
-  return {
-    skills: state.skills,
-  }
-}
-const mapDispatch = (dispatch)=>{
-  return {
-    updateSkill: (id)=>{},
-    getSkill: async (id)=>{ 
-      const skill = (await axios.get(`/api/skill/${id}`)).data
-      return skill
-    }
-  }
-}
 
-export default connect(mapState, mapDispatch)(SkillUpdate)
+
+// const mapState = (state, ownProps)=>{
+//   console.log('ownProps',ownProps)
+//   const skill = state.skills.filter(skill => skill.id === ownProps.match.params.id*1)[0]
+//   //console.log('mapState Skill->', skill)
+//   return {
+//     skills: state.skills,
+//     //skill
+//   }
+// }
+// const mapDispatch = (dispatch)=>{
+//   return {
+//     loadSkills: ()=>{ dispatch(_loadSkills())},
+//   }
+// }
+
+export default SkillUpdate

@@ -44,6 +44,7 @@ const syncAndSeed = async() =>{
     Skill.create({ name: 'Juggling'}),
     Skill.create({ name: 'Plate Spinning'}),
     Skill.create({ name: 'Long Division'}),
+    Skill.create({ name: 'No Skill'}),
   ])
    await Promise.all([
     Talent.create({ clientId: 1, skillId: 2}),

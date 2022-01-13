@@ -6,8 +6,6 @@ const port = process.env.PORT || 3000;
 
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
-
 app.get('/api/clients', async(req, res, next)=>{
   try {
     const clients = await Client.findAll({
@@ -50,6 +48,8 @@ app.get('/api/skill/:id', async(req, res, next)=>{
     console.log(err)
   }
 })
+
+app.get('*', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 
 
 const init = async()=>{

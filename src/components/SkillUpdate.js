@@ -1,13 +1,13 @@
 import React, { useState, useEffect} from 'react'
 import { connect, useSelector, useDispatch } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
-import { _loadSkills, _loadClients } from '../../store'
+import { _loadSkills, _loadClients, _updateSkill } from '../../store'
 
 const SkillUpdate =(props)=>{
   const { id } = useParams()
   const [name, setName] = useState('')
   
-  const skill = useSelector((state, ownProps) => state.skills.filter(skill => skill.id === id*1)[0]);
+  const skill = useSelector((state) => state.skills.filter(skill => skill.id === id*1)[0]);
 
   const dispatch = useDispatch();
   useEffect(()=>{
@@ -15,7 +15,9 @@ const SkillUpdate =(props)=>{
   },[])
   const submit = (e) => {
     e.preventDefault()
-    props.handleSubmit(post)
+    dispatch(_updateSkill(id, name))
+    setName('')
+    window.location.href = '/'
   }
 
   //console.log('skill-->', skill)
@@ -47,7 +49,6 @@ const SkillUpdate =(props)=>{
 const mapState = (state, ownProps)=>{
   return {
     history: ownProps.history
-    //skill
   }
 }
 

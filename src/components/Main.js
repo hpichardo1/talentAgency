@@ -6,15 +6,11 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Home from './Home'
 import ClientUpdate from './ClientUpdate'
 import SkillUpdate from './SkillUpdate'
-import Parent from './Parent'
 
 const Main = (props) =>{
   useEffect(()=>{
-    const load = async()=>{
-      await props.loadClients()
-      await props.loadSkills()
-    }
-    load()
+    props.loadClients()
+    props.loadSkills()
   },[])
 
   return (
@@ -34,8 +30,8 @@ const Main = (props) =>{
 const mapDispatch =(dispatch)=>{
   return {
     loadClients: ()=>{ dispatch(_loadClients())},
-    loadSkills: ()=>{ dispatch(_loadSkills())}
-    //loadTalent: ()=>{}
+    loadSkills: ()=>{ dispatch(_loadSkills())},
+    loadTalents: ()=>{}
   }
 }
 

@@ -32,7 +32,6 @@ const SkillUpdate =(props)=>{
           name='name' 
           placeholder={skill ? skill.name : 'Skill name' } 
           onChange={(evt)=> {
-            //console.log(name)
             setName(evt.target.value)
           }}
           />

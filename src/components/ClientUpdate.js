@@ -7,11 +7,11 @@ import { _loadSkills, _loadClients, _updateSkill, _deleteSkill } from '../../sto
 const ClientUpdate =(props)=>{
   const { id } = useParams()
   const dispatch = useDispatch();
+
   const client = useSelector(state => state.clients.find(client => client.id === id*1)) || {}
   const talents = client.talents || []
   const currentSkills = talents.map( currentSkill => currentSkill.skill) || []
   const desiredSkills = useSelector( state => state.skills.filter( skill => !currentSkills.find( currentSkill => currentSkill.id === skill.id) ))
-  console.log('currentSkills--->',currentSkills)
 
   const deleteSkill = (clientId, skillId)=>{
     dispatch( _deleteSkill(clientId, skillId))
@@ -37,18 +37,3 @@ const ClientUpdate =(props)=>{
 }
 
 export default ClientUpdate
-
-
-
-
-// currentSkills.map( (skill, idx) =>{
-//   if (idx === currentSkills.length-1){
-//     return (
-//       <li key={skill.id}>{skill.name} <button>X</button></li>
-//     )
-//   } else {
-//     return (
-//       <li key={skill.id}>{skill.name} <button>X</button> and</li>
-//     )
-//   }
-// })
